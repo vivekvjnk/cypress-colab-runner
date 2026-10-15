@@ -71,6 +71,15 @@ All 38 DREAMPlace custom C++/CUDA operators are compiled once in this pinned env
 
 During deployment to Google Colab, four distinct failure modes were identified and systematically resolved:
 
+### Installation: Official Apptainer PPA
+Ubuntu repositories on some Google Colab instances lack the latest Apptainer package or have missing dependency bindings. To guarantee a clean install, add the official PPA:
+```bash
+sudo apt-get update && sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:apptainer/ppa
+sudo apt-get update -qq
+sudo apt-get install -y -qq apptainer
+```
+
 ### Issue 1: Kernel Overlayfs Capability Failure
 - **Error**:
   ```text
