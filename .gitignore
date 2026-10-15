@@ -1,0 +1,19 @@
+# Results and job artifacts
+results/
+results*/
+*.log
+*.lp
+*.sif
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+*.egg-info/
+.venv/
+env/
+
+# System / OS
+.DS_Store
+Thumbs.db
