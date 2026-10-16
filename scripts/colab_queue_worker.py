@@ -111,7 +111,11 @@ def process_job(job_dir, cypress_root):
     with open(resolved_config, "w") as f:
         json.dump(config, f, indent=2)
 
-    # Run Placer.py
+    # Run Placer.py with cwd set to the writable job directory
+    env = os.environ.copy()
+    existing_pythonpath = env.get("PYTHONPATH", "")
+    env["PYTHONPATH"] = f"{cypress_root}:{existing_pythonpath}".rstrip(":")
+
     cmd = [
         sys.executable,
         str(Path(cypress_root) / "dreamplace" / "Placer.py"),
@@ -123,7 +127,8 @@ def process_job(job_dir, cypress_root):
     with open(log_path, "w") as log_file:
         proc = subprocess.run(
             cmd,
-            cwd=cypress_root,
+            cwd=str(job_path),
+            env=env,
             stdout=log_file,
             stderr=subprocess.STDOUT,
             text=True,
